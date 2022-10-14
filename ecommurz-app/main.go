@@ -63,6 +63,9 @@ func main() {
 			log.Debug().Msg(fmt.Sprintf("successfully connected"))
 			log.Debug().Msg(fmt.Sprintf("current username: %s", c.User))
 			log.Debug().Msg(fmt.Sprintf("current password: %s", c.Password))
+			fmt.Fprintf(w, "successfully connected\n")
+			fmt.Fprintf(w, "current username: %s\n", c.User)
+			fmt.Fprintf(w, "current password: %s\n", c.Password)
 		})
 	http.ListenAndServe(":8090", nil)
 }
