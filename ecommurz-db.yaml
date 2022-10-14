@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ecommurz-db
+spec:
+  serviceName: "ecommurz-db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecommurz-db
+  template:
+    metadata:
+      labels:
+        app: ecommurz-db
+    spec:
+      containers:
+      - name: ecommurz-db
+        image: postgres:latest
+        env:
+        - name: POSTGRES_DB
+          value: "ecommurz-db"
+        - name: POSTGRES_USER
+          value: "ecommurz"
+        - name: POSTGRES_PASSWORD
+          value: "ecommurz"
+        ports:
+        - containerPort: 5432
+          name: ecommurz-db
+        volumeMounts:
+        - name: ecommurz-db
+          mountPath: /var/lib/postgresql/data
+          subPath: postgres
+  volumeClaimTemplates:
+  - metadata:
+      name: ecommurz-db
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommurz-db
+  labels:
+    app: ecommurz-db
+spec:
+  ports:
+  - port: 5432
+    name: ecommurz-db
+  clusterIP: None
+  selector:
+    app: ecommurz-db
+
