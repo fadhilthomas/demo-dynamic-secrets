@@ -36,3 +36,17 @@ spec:
         ports:
         - name: http
           containerPort: 8090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommurz-app
+  labels:
+    app: ecommurz-app
+spec:
+  ports:
+  - port: 8090
+    name: ecommurz-app
+  clusterIP: None
+  selector:
+    app: ecommurz-app
