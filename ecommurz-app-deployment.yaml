@@ -16,11 +16,11 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/agent-inject-status: "update"
-        vault.hashicorp.com/agent-inject-secret-ecommurzapp: "database/creds/ecommurz-db-readonly"
+        vault.hashicorp.com/agent-inject-secret-ecommurzapp: "database/creds/ecommurz-backend-readwrite"
         vault.hashicorp.com/secret-volume-path-ecommurzapp: "/app/config"
         vault.hashicorp.com/agent-inject-file-ecommurzapp: "conf.yaml"
         vault.hashicorp.com/agent-inject-template-ecommurzapp: |
-          {{- with secret "database/creds/ecommurz-db-readonly" -}}
+          {{- with secret "database/creds/ecommurz-backend-readwrite" -}}
           DB_HOST: ecommurz-db
           DB_PORT: 5432
           DB_USERNAME: {{ .Data.username }}
